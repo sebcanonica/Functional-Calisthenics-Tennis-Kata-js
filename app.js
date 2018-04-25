@@ -13,7 +13,7 @@ function playGame(game) {
                 }) ) ).passthru
             } );
         }
-        game.io.inputPromise().then( winPoint );
+        game.io.input( winPoint );
     }
 }
 
@@ -66,14 +66,13 @@ function displayBasePoint(number) {
 }
 
 function consoleInput(lineReader) {
-    return function() {
-        console.log('creating promise');
-        return new Promise( (resolve, reject) => {
-            lineReader.question('Winner (1 | 2)?', (answer) => {
-                resolve(answer);
-            });
+    function askWinner(resolve) {
+        function resolveWinner(answer) {
+            resolve(answer);
         }
-    ) };
+        lineReader.question('Winner (1 | 2)?', resolveWinner);
+    }
+    return askWinner;
 }
 
 function consoleOutput(decoratedScore) {
@@ -87,10 +86,10 @@ playGame({
     score: { p1:0, p2:0 },
     io: {
         output : consoleOutput,
-        inputPromise: consoleInput( readline.createInterface({
+        input : consoleInput(readline.createInterface({
             input: process.stdin,
             output: process.stdout
-        }) )
+        }))
     }
 });
 
