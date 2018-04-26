@@ -2,7 +2,7 @@ const readline = require('readline');
 
 function playGame(game) {
     if (game.score.endGame) {
-        process.exit();
+        return game.io.then();
     } else {
         function winPoint(winner) {
             playGame( {
@@ -13,7 +13,7 @@ function playGame(game) {
                 }) ) ).passthru
             } );
         }
-        game.io.input( winPoint );
+        return game.io.input( winPoint );
     }
 }
 
@@ -66,10 +66,7 @@ function displayBasePoint(number) {
 }
 
 function consoleInput(lineReader) {
-    function askWinner(resolve) {
-        function resolveWinner(answer) {
-            resolve(answer);
-        }
+    function askWinner(resolveWinner) {
         lineReader.question('Winner (1 | 2)?', resolveWinner);
     }
     return askWinner;
@@ -89,7 +86,8 @@ playGame({
         input : consoleInput(readline.createInterface({
             input: process.stdin,
             output: process.stdout
-        }))
+        })),
+        then: process.exit
     }
 });
 
