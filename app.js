@@ -5,23 +5,19 @@ function playGame(game) {
         return game.io.then();
     } else {
         function winPoint(winner) {
+            function addPointToScore() {
+                if (winner == 1) {
+                    return { p1: game.score.p1+1, p2: game.score.p2 };
+                } else {
+                    return { p1: game.score.p1, p2: game.score.p2+1 };
+                }
+            }
             playGame( {
                 io: game.io,
-                score: game.io.output( decorateDisplay( plusPoint({
-                    ...game.score,
-                    lastPointWinner: winner
-                }) ) ).passthru
+                score: game.io.output( decorateDisplay( addPointToScore() ) ).passthru
             } );
         }
         return game.io.input( winPoint );
-    }
-}
-
-function plusPoint(score) {
-    if (score.lastPointWinner == 1) {
-        return { p1: score.p1+1, p2: score.p2 };
-    } else {
-        return { p1: score.p1, p2: score.p2+1 };
     }
 }
 
