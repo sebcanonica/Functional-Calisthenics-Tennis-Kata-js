@@ -8,9 +8,11 @@ describe( 'Tennis game acceptance', () => {
             score: { p1:0, p2:0 },
             io: {
                 input: (resolveWinner) => { resolveWinner( scenario.shift() ); },
-                output: (decoratedScore) => {
-                    actual.push(decoratedScore.display);
-                    return { passthru: decoratedScore };
+                output: (display) => {
+                    //actual.push(decoratedScore.display);
+                    //return { passthru: decoratedScore };
+                    actual.push(display);
+                    return display;
                 },
                 then: () => {
                     expect(actual.join(', ')).toBe([
@@ -41,9 +43,9 @@ describe( 'Tennis game acceptance', () => {
                 score: { p1:p1Score, p2:p2Score },
                 io: {
                     input: (resolveWinner) => { resolveWinner( pointWinner ); },
-                    output: (decoratedScore) => {
-                        expect(decoratedScore.display).toBe(actual);
-                        return { passthru: decoratedScore };
+                    output: (display) => {
+                        expect(display).toBe(actual);
+                        return display;
                     },
                     then: () => {
                         done();

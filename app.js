@@ -9,11 +9,8 @@ function consoleInput(lineReader) {
     return askWinner;
 }
 
-function consoleOutput(decoratedScore) {
-    return {
-        passthru: decoratedScore,
-        whatever: console.log(decoratedScore.display)
-    };
+function consoleOutput(display) {
+    return console.log(display);
 }
 
 playGame({
