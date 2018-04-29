@@ -1,6 +1,6 @@
 const readline = require('readline');
 
-const playGame = require('./lib/playGame');
+const {playGame} = require('./lib/playGame');
 
 function consoleInput(lineReader) {
     function askWinner(resolveWinner) {

@@ -10,6 +10,13 @@
             "name": "Launch Program",
             "program": "${workspaceFolder}/app.js",
             "console": "externalTerminal"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program app_stream",
+            "program": "${workspaceFolder}/app_stream.js",
+            "console": "externalTerminal"
         }
     ]
 }

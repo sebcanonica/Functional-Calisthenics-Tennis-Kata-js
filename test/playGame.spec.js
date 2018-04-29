@@ -1,4 +1,4 @@
-const playGame = require('../lib/playGame');
+const {playGame} = require('../lib/playGame');
 
 describe( 'Tennis game acceptance', () => {
     it('should play a tennis game', (done) => {
@@ -7,10 +7,8 @@ describe( 'Tennis game acceptance', () => {
         playGame({
             score: { p1:0, p2:0 },
             io: {
-                input: (resolveWinner) => { resolveWinner( scenario.shift() ); },
-                output: (display) => {
-                    //actual.push(decoratedScore.display);
-                    //return { passthru: decoratedScore };
+                input: resolveWinner => { resolveWinner( scenario.shift() ); },
+                output: display => {
                     actual.push(display);
                     return display;
                 },
@@ -42,8 +40,8 @@ describe( 'Tennis game acceptance', () => {
             playGame({
                 score: { p1:p1Score, p2:p2Score },
                 io: {
-                    input: (resolveWinner) => { resolveWinner( pointWinner ); },
-                    output: (display) => {
+                    input: resolveWinner => { resolveWinner( pointWinner ); },
+                    output: display => {
                         expect(display).toBe(actual);
                         return display;
                     },
