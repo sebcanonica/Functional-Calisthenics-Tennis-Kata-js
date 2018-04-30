@@ -1,24 +1,27 @@
 
-const {fromScore} = require('./lib/playGame');
+const {TennisGame} = require('./lib/playGame');
 const readline = require('readline');
 
 function consoleSource(lineReader) {
     function askWinner(resolveWinner) {
-        lineReader.question('Winner (1 | 2)?', resolveWinner);
+        return lineReader.question('Winner (1 | 2)?', resolveWinner);
     }
     return askWinner;
+}
+
+function createWinnerSource() {
+    return consoleSource( readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    }))
 }
 
 function consoleOutput(display) {
     return console.log(display);
 }
 
-
-fromScore({p1:0,p2:0})
-    .withWinnerSource( consoleSource( readline.createInterface({
-            input: process.stdin,
-            output: process.stdout
-        })))
-    .withOutput(consoleOutput)
+TennisGame()
+    .withWinnerSource( createWinnerSource() )
+    .withOutput(consoleOutput)    
     .withTermination(process.exit)
     .play();

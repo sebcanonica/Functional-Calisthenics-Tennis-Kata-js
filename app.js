@@ -4,7 +4,7 @@ const {playGame} = require('./lib/playGame');
 
 function consoleInput(lineReader) {
     function askWinner(resolveWinner) {
-        lineReader.question('Winner (1 | 2)?', resolveWinner);
+        return lineReader.question('Winner (1 | 2)?', resolveWinner);
     }
     return askWinner;
 }
